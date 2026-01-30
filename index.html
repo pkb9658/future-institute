@@ -8,24 +8,20 @@
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
         :root { --brand: #0041ff; --neon: #00f2ff; --navy: #0a0f1d; --white: #ffffff; --text: #334155; }
         
-        body { margin: 0; background-color: #f8fafc; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
+        body { margin: 0; background-color: #f1f5f9; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
 
         .watermark-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-        .float-emoji { position: absolute; font-size: 38px; opacity: 0.25; animation: floatEmoji 10s infinite ease-in-out; }
+        .float-emoji { position: absolute; font-size: 38px; opacity: 0.15; animation: floatEmoji 10s infinite ease-in-out; }
         @keyframes floatEmoji { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
 
-        /* HEADER & OLD TV GLITCH EFFECT */
+        /* HEADER & OLD TV GLITCH */
         header { 
             background: var(--navy); padding: 85px 20px; text-align: center; 
             border-bottom: 6px solid var(--brand); position: relative; z-index: 10; 
             overflow: hidden; transition: all 0.2s;
         }
         
-        header.tv-glitch {
-            animation: tvShutDown 0.6s ease-out forwards;
-            background: #fff;
-        }
-
+        header.tv-glitch { animation: tvShutDown 0.6s ease-out forwards; background: #fff; }
         @keyframes tvShutDown {
             0% { transform: scaleY(1); filter: brightness(1); }
             20% { transform: scaleY(0.01) scaleX(1); filter: brightness(10); }
@@ -34,69 +30,60 @@
         }
 
         .name-wrapper { display: flex; justify-content: center; height: 80px; position: relative; }
-        
-        .letter { 
-            display: inline-block; font-size: clamp(28px, 8vw, 60px); font-weight: 900; color: white; 
-            opacity: 0; transform: translateY(-350px);
-            position: relative;
-        }
-        
-        .letter.active { 
-            opacity: 1; 
-            transform: translateY(0); 
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s;
-        }
+        .letter { display: inline-block; font-size: clamp(28px, 8vw, 60px); font-weight: 900; color: white; opacity: 0; transform: translateY(-350px); position: relative; }
+        .letter.active { opacity: 1; transform: translateY(0); transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s; }
 
         .shake { animation: earthquake 0.3s infinite; }
-        @keyframes earthquake {
-            0% { transform: translate(3px, 0px); }
-            25% { transform: translate(-3px, 2px); }
-            50% { transform: translate(3px, -2px); }
-            100% { transform: translate(-3px, 1px); }
+        @keyframes earthquake { 0% { transform: translate(3px, 0px); } 25% { transform: translate(-3px, 2px); } 50% { transform: translate(3px, -2px); } 100% { transform: translate(-3px, 1px); } }
+
+        .letter.fall { opacity: 0 !important; transform: translateY(1100px) rotateX(250deg) rotateZ(120deg) skew(15deg) !important; transition: transform 0.9s cubic-bezier(0.55, 0.055, 0.675, 0.19), opacity 0.4s !important; }
+        .letter.it-hang { opacity: 1; transform: translateY(0); animation: dangle 1.8s ease-in-out infinite; transform-origin: top center; z-index: 100; color: white; }
+        @keyframes dangle { 0%, 100% { transform: rotate(14deg); } 50% { transform: rotate(-14deg); } }
+
+        .tagline { display: block; margin-top: 25px; color: var(--neon); letter-spacing: 4px; font-size: clamp(10px, 2vw, 14px); font-weight: 800; text-transform: uppercase; animation: tubeLight 4.5s infinite; }
+        @keyframes tubeLight { 0%, 15%, 20%, 25%, 50%, 100% { opacity: 1; text-shadow: 0 0 12px var(--neon); } 18%, 22%, 52% { opacity: 0.1; text-shadow: none; } }
+
+        /* 3D COURSE BOXES & LAYOUT */
+        .main-content { 
+            padding: 40px 20px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 30px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            perspective: 1000px;
+            position: relative; 
+            z-index: 2; 
         }
 
-        /* HEAVY BREAKDOWN PHYSICS */
-        .letter.fall { 
-            opacity: 0 !important; 
-            transform: translateY(1100px) rotateX(250deg) rotateZ(120deg) skew(15deg) !important; 
-            transition: transform 0.9s cubic-bezier(0.55, 0.055, 0.675, 0.19), opacity 0.4s !important; 
+        @media (min-width: 992px) { 
+            .main-content { 
+                flex-direction: row; 
+                justify-content: center;
+                align-items: stretch;
+            } 
         }
         
-        /* HANGING WITHOUT GLOW */
-        .letter.it-hang { 
-            opacity: 1;
-            transform: translateY(0);
-            animation: dangle 1.8s ease-in-out infinite;
-            transform-origin: top center;
-            z-index: 100;
-            color: white;
-        }
-        @keyframes dangle {
-            0%, 100% { transform: rotate(14deg); }
-            50% { transform: rotate(-14deg); }
+        .card { 
+            background: white; 
+            border-radius: 20px; 
+            border-top: 8px solid var(--brand); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s;
+            transform-style: preserve-3d;
+            flex: 1;
         }
 
-        /* TAGLINE TUBE LIGHT EFFECT */
-        .tagline { 
-            display: block; margin-top: 25px; color: var(--neon); letter-spacing: 4px; 
-            font-size: clamp(10px, 2vw, 14px); font-weight: 800; text-transform: uppercase;
-            animation: tubeLight 4.5s infinite;
+        .card:hover {
+            transform: translateY(-15px) rotateX(5deg) rotateY(-2deg);
+            box-shadow: 0 25px 50px rgba(0, 65, 255, 0.15);
         }
 
-        @keyframes tubeLight {
-            0%, 15%, 20%, 25%, 50%, 100% { opacity: 1; text-shadow: 0 0 12px var(--neon); }
-            18%, 22%, 52% { opacity: 0.1; text-shadow: none; }
-        }
-
-        /* GRID CONTENT */
-        .main-content { padding: 25px; display: grid; grid-template-columns: 1fr; gap: 25px; max-width: 1300px; margin: 0 auto; position: relative; z-index: 2; }
-        @media (min-width: 1024px) { .main-content { grid-template-columns: repeat(3, 1fr); } }
+        .card-header { background: #f8fafc; padding: 20px; color: var(--brand); font-weight: 900; font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; }
         
-        .card { background: white; border-radius: 20px; border-top: 8px solid var(--brand); box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow: hidden; }
-        .card-header { background: #f8fafc; padding: 18px 25px; color: var(--brand); font-weight: 900; font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; }
-        
-        .item { padding: 22px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: 0.2s; -webkit-tap-highlight-color: transparent; }
-        .item:active { background: #f0f7ff; }
+        .item { padding: 22px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: 0.3s; }
+        .item:hover { background: #f0f7ff; padding-left: 30px; }
         .top-row { display: flex; justify-content: space-between; align-items: center; }
         .c-name { font-weight: 800; color: #111827; font-size: 18px; }
         .dur { background: var(--brand); color: white; font-size: 10px; padding: 5px 12px; border-radius: 20px; font-weight: 800; }
@@ -104,11 +91,7 @@
 
         /* MODAL */
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 15, 29, 0.95); display: none; z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
-        .modal-content { 
-            background: white; border-radius: 25px; width: 92%; max-width: 450px; 
-            max-height: 85vh; overflow-y: auto; position: relative;
-            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
+        .modal-content { background: white; border-radius: 25px; width: 92%; max-width: 450px; max-height: 85vh; overflow-y: auto; position: relative; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .modal-header { background: linear-gradient(135deg, var(--brand), #001fb3); color: white; padding: 25px; text-align: center; position: sticky; top: 0; z-index: 5; }
         .modal-body { padding: 25px; }
@@ -119,9 +102,10 @@
         .curriculum-box { background: #f1f5f9; padding: 15px; border-radius: 12px; font-size: 13px; color: #475569; line-height: 1.5; }
         .close-btn { width: 100%; margin-top: 20px; padding: 15px; background: var(--navy); color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 14px; }
 
-        footer { background: var(--navy); color: white; padding: 40px 25px; display: flex; flex-direction: column; gap: 30px; position: relative; z-index: 2; }
+        footer { background: var(--navy); color: white; padding: 50px 25px; display: flex; flex-direction: column; gap: 30px; position: relative; z-index: 2; }
         @media (min-width: 768px) { footer { flex-direction: row; justify-content: space-between; align-items: center; } }
-        .map-btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; color: var(--navy); text-decoration: none; font-weight: 800; font-size: 12px; background: var(--neon); padding: 12px 24px; border-radius: 10px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .map-btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; color: var(--navy); text-decoration: none; font-weight: 800; font-size: 12px; background: var(--neon); padding: 14px 28px; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0, 242, 255, 0.2); }
+        .map-btn:hover { background: #fff; transform: translateY(-3px); }
     </style>
 </head>
 <body>
@@ -216,8 +200,8 @@
         </div>
         <div style="text-align: left;">
             <h3 style="color:var(--neon); margin:0; font-size: 18px;">📞 Contact Us</h3>
-            <p style="margin: 8px 0; font-size: 14px; opacity: 0.8;">+91 99388 84351</p>
-            <p style="font-size: 11px; font-weight: 700; color: var(--brand);">ISO 9001:2015 CERTIFIED</p>
+            <p style="margin: 8px 0; font-size: 20px; font-weight: 700;">+91 6371305069</p>
+            <p style="font-size: 11px; font-weight: 700; color: var(--brand); letter-spacing: 1px;">ISO 9001:2015 CERTIFIED</p>
         </div>
     </footer>
 
@@ -242,50 +226,30 @@
         async function startCycle() {
             createLetters();
             const letters = document.querySelectorAll('.letter');
-            
-            // OLD TV REBOOT EFFECT
             headerBg.classList.add('tv-glitch');
             await new Promise(r => setTimeout(r, 600));
             headerBg.classList.remove('tv-glitch');
-
-            // Build sequence
             for(let i=0; i<letters.length; i++) {
                 await new Promise(r => setTimeout(r, 70));
                 letters[i].classList.add('active');
             }
-
             await new Promise(r => setTimeout(r, 2000));
-            
-            // Violent shake before breakdown
             headerBg.classList.add('shake');
             await new Promise(r => setTimeout(r, 1200));
             headerBg.classList.remove('shake');
-
-            // Breakdown
             letters.forEach((l, i) => {
                 if(l.id !== 'survivor-i' && l.id !== 'survivor-t') {
-                    setTimeout(() => {
-                        l.classList.remove('active');
-                        l.classList.add('fall');
-                    }, i * 40);
-                } else {
-                    l.classList.add('it-hang');
-                }
+                    setTimeout(() => { l.classList.remove('active'); l.classList.add('fall'); }, i * 40);
+                } else { l.classList.add('it-hang'); }
             });
-
-            // Final drop of survivors
             await new Promise(r => setTimeout(r, 3800));
             const iChar = document.getElementById('survivor-i');
             const tChar = document.getElementById('survivor-t');
-            
             if(iChar && tChar) {
-                iChar.classList.remove('it-hang');
-                iChar.classList.add('fall');
+                iChar.classList.remove('it-hang'); iChar.classList.add('fall');
                 await new Promise(r => setTimeout(r, 350));
-                tChar.classList.remove('it-hang');
-                tChar.classList.add('fall');
+                tChar.classList.remove('it-hang'); tChar.classList.add('fall');
             }
-
             await new Promise(r => setTimeout(r, 1500));
             startCycle();
         }
@@ -298,7 +262,6 @@
             document.getElementById('pLearn').innerText = learn;
             document.getElementById('pModal').style.display = 'flex';
         }
-
         window.onload = startCycle;
     </script>
 </body>
