@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Future Institute | The Elite Tech Mission</title>
+    <title>Excellent Institute | The Elite Tech Mission</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
         :root { --brand: #0041ff; --neon: #00f2ff; --navy: #0a0f1d; --white: #ffffff; --text: #334155; }
@@ -16,11 +16,22 @@
 
         /* HEADER & OLD TV GLITCH */
         header { 
-            background: var(--navy); padding: 85px 20px; text-align: center; 
+            background: var(--navy); padding: 40px 20px 85px 20px; text-align: center; 
             border-bottom: 6px solid var(--brand); position: relative; z-index: 10; 
             overflow: hidden; transition: all 0.2s;
         }
         
+        /* LOGO STYLING */
+        .logo-tm {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.3));
+            animation: logoFade 1.5s ease-out;
+            object-fit: contain;
+        }
+        @keyframes logoFade { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+
         header.tv-glitch { animation: tvShutDown 0.6s ease-out forwards; background: #fff; }
         @keyframes tvShutDown {
             0% { transform: scaleY(1); filter: brightness(1); }
@@ -37,51 +48,25 @@
         @keyframes earthquake { 0% { transform: translate(3px, 0px); } 25% { transform: translate(-3px, 2px); } 50% { transform: translate(3px, -2px); } 100% { transform: translate(-3px, 1px); } }
 
         .letter.fall { opacity: 0 !important; transform: translateY(1100px) rotateX(250deg) rotateZ(120deg) skew(15deg) !important; transition: transform 0.9s cubic-bezier(0.55, 0.055, 0.675, 0.19), opacity 0.4s !important; }
-        .letter.it-hang { opacity: 1; transform: translateY(0); animation: dangle 1.8s ease-in-out infinite; transform-origin: top center; z-index: 100; color: white; }
+        
+        .letter.it-hang { 
+            opacity: 1; transform: translateY(0); 
+            animation: dangle 1.8s ease-in-out infinite; 
+            transform-origin: top center; z-index: 100; color: white; 
+        }
         @keyframes dangle { 0%, 100% { transform: rotate(14deg); } 50% { transform: rotate(-14deg); } }
 
         .tagline { display: block; margin-top: 25px; color: var(--neon); letter-spacing: 4px; font-size: clamp(10px, 2vw, 14px); font-weight: 800; text-transform: uppercase; animation: tubeLight 4.5s infinite; }
         @keyframes tubeLight { 0%, 15%, 20%, 25%, 50%, 100% { opacity: 1; text-shadow: 0 0 12px var(--neon); } 18%, 22%, 52% { opacity: 0.1; text-shadow: none; } }
 
         /* 3D COURSE BOXES & LAYOUT */
-        .main-content { 
-            padding: 40px 20px; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 30px; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            perspective: 1000px;
-            position: relative; 
-            z-index: 2; 
-        }
-
-        @media (min-width: 992px) { 
-            .main-content { 
-                flex-direction: row; 
-                justify-content: center;
-                align-items: stretch;
-            } 
-        }
+        .main-content { padding: 40px 20px; display: flex; flex-direction: column; gap: 30px; max-width: 1200px; margin: 0 auto; perspective: 1000px; position: relative; z-index: 2; }
+        @media (min-width: 992px) { .main-content { flex-direction: row; justify-content: center; align-items: stretch; } }
         
-        .card { 
-            background: white; 
-            border-radius: 20px; 
-            border-top: 8px solid var(--brand); 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
-            overflow: hidden;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s;
-            transform-style: preserve-3d;
-            flex: 1;
-        }
-
-        .card:hover {
-            transform: translateY(-15px) rotateX(5deg) rotateY(-2deg);
-            box-shadow: 0 25px 50px rgba(0, 65, 255, 0.15);
-        }
+        .card { background: white; border-radius: 20px; border-top: 8px solid var(--brand); box-shadow: 0 15px 35px rgba(0,0,0,0.1); overflow: hidden; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s; transform-style: preserve-3d; flex: 1; }
+        .card:hover { transform: translateY(-15px) rotateX(5deg) rotateY(-2deg); box-shadow: 0 25px 50px rgba(0, 65, 255, 0.15); }
 
         .card-header { background: #f8fafc; padding: 20px; color: var(--brand); font-weight: 900; font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; }
-        
         .item { padding: 22px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: 0.3s; }
         .item:hover { background: #f0f7ff; padding-left: 30px; }
         .top-row { display: flex; justify-content: space-between; align-items: center; }
@@ -105,7 +90,6 @@
         footer { background: var(--navy); color: white; padding: 50px 25px; display: flex; flex-direction: column; gap: 30px; position: relative; z-index: 2; }
         @media (min-width: 768px) { footer { flex-direction: row; justify-content: space-between; align-items: center; } }
         .map-btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; color: var(--navy); text-decoration: none; font-weight: 800; font-size: 12px; background: var(--neon); padding: 14px 28px; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0, 242, 255, 0.2); }
-        .map-btn:hover { background: #fff; transform: translateY(-3px); }
     </style>
 </head>
 <body>
@@ -122,6 +106,8 @@
     </div>
 
     <header id="headerBg">
+        <img src="logo-trademark.png" alt="Excellent Institute Logo" class="logo-tm">
+        
         <div class="name-wrapper" id="nameContainer"></div>
         <span class="tagline">EMPOWERING MINDS • ELEVATING CAREERS • SINCE 2026</span>
     </header>
@@ -206,7 +192,7 @@
     </footer>
 
     <script>
-        const nameText = "FUTURE INSTITUTE";
+        const nameText = "EXCELLENT INSTITUTE";
         const container = document.getElementById('nameContainer');
         const headerBg = document.getElementById('headerBg');
 
@@ -217,8 +203,11 @@
                 span.innerText = char === ' ' ? '\u00A0' : char;
                 span.className = 'letter';
                 if(char === ' ') span.style.width = "15px";
-                if(i === 11) span.id = "survivor-i"; 
-                if(i === 12) span.id = "survivor-t"; 
+                
+                // Survivor logic: Targeting indices 14 and 15 specifically
+                if(i === 14) span.id = "survivor-i"; 
+                if(i === 15) span.id = "survivor-t"; 
+                
                 container.appendChild(span);
             });
         }
@@ -226,22 +215,27 @@
         async function startCycle() {
             createLetters();
             const letters = document.querySelectorAll('.letter');
+            
             headerBg.classList.add('tv-glitch');
             await new Promise(r => setTimeout(r, 600));
             headerBg.classList.remove('tv-glitch');
+
             for(let i=0; i<letters.length; i++) {
                 await new Promise(r => setTimeout(r, 70));
                 letters[i].classList.add('active');
             }
+
             await new Promise(r => setTimeout(r, 2000));
             headerBg.classList.add('shake');
             await new Promise(r => setTimeout(r, 1200));
             headerBg.classList.remove('shake');
+
             letters.forEach((l, i) => {
                 if(l.id !== 'survivor-i' && l.id !== 'survivor-t') {
                     setTimeout(() => { l.classList.remove('active'); l.classList.add('fall'); }, i * 40);
                 } else { l.classList.add('it-hang'); }
             });
+
             await new Promise(r => setTimeout(r, 3800));
             const iChar = document.getElementById('survivor-i');
             const tChar = document.getElementById('survivor-t');
